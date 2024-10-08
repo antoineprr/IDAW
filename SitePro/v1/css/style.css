@@ -3,6 +3,21 @@ body{
     background-color: #c2eaff;
 }
 
+header{
+    margin-bottom: 2em;
+    border-bottom: 2px solid black;
+}
+
+.name{
+    text-align: left;
+    float: left;
+}
+
+.pfpcontainer{
+    text-align: right;
+    float: right;
+}
+
 .menu{
     float: left;
     width: 100px;
@@ -41,8 +56,6 @@ body{
 .menu a:active {
     color: rgb(217, 212, 172);
 }
-
-
    
 .content{
     float: right;
@@ -67,7 +80,6 @@ figcaption{
 }
 
 .projectsection{
-    width: 90%;
     background-color: #c3d2de;
     border: 1px solid #bcbcbc;
     padding: 10px;
@@ -78,14 +90,17 @@ figcaption{
 
 footer{
     margin-top: 2em;
+    margin-bottom: 2em;
     border-top: 2px solid black;
     padding: 5px;   
 }
 
 .credit{
     text-align: left;
+    float: left;
 }    
 
 .pagename{
     text-align: right;
+    float: right;
 }
