@@ -1,0 +1,31 @@
+.menu{
+    float: left;
+    width: 10%;
+    background-color: #9f9f94;
+    border: 1px solid #000000;
+    padding: 10px;
+}
+   
+.content{
+    float: right;
+    width: 85%;
+    background-color: #9f9f94;
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+.spacer { clear: both; }
+
+footer{
+    margin-top: 2em;
+    border-top: 2px solid black;
+    padding: 5px;   
+}
+
+.credit{
+    text-align: left;
+}    
+
+.pagename{
+    text-align: right;
+}
