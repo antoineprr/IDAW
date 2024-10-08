@@ -28,6 +28,12 @@ body{
     display: block;
 }
 
+#currentpage {
+    background-color: #4CAF50;
+    color: white; 
+    font-style: italic;
+}
+
 .menu a:hover {
     background-color: rgb(170, 188, 209);
 }
@@ -35,6 +41,8 @@ body{
 .menu a:active {
     color: rgb(217, 212, 172);
 }
+
+
    
 .content{
     float: right;
