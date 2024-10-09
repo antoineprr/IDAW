@@ -62,7 +62,49 @@ header{
     width: 85%;
     background-color: #a8b6c1;
     border: 1px solid #000000;
-    padding: 10px;
+    padding: 15px;
+}
+
+
+.conteneur_informations section{
+    border: 1px solid #000000;
+    padding: 15px;
+    width: 46%;
+    min-height: 225px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.experience{
+    background-color: #F4C2C2;
+    float: left;
+}
+
+.formation{
+    background-color: #e7e4c0;
+    float: right;
+}
+
+.conteneur_informations ul{
+    padding-left: 20px;
+}
+
+.competence{
+    background-color: #cae7c0;
+    border: 1px solid #000000;
+    padding: 15px;
+    width: 97%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.langue{
+    background-color: #e7c0e1;
+    border: 1px solid #000000;
+    padding: 15px;
+    width: 97%;
+    margin-bottom: 20px;
+    border-radius: 5px;
 }
 
 .content img{
