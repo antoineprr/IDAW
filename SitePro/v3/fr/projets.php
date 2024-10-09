@@ -6,10 +6,12 @@
             Premier exercice de l'UV IDAW.
             <br>
             Site à améliorer au fur et à mesure de l'UV. La première version étant uniquement réalisée en HTML.
+            <br>
+            Pour suivre l'évolution du <a href="https://github.com/antoineprr/IDAW/tree/e8d0eb2ee8ec87f35f323b37689d66fb7989cb5b/SitePro" target="_blank">projet</a>
         </p>
         <figure id="CodeHTML">
             <img src="image/screen_code.png" alt="Code HTML Accueil" height="300">
-            <figcaption>Code HTML de la page d'accueil</figcaption>
+            <figcaption>Code HTML de la page d'accueil en V1</figcaption>
         </figure>
     </section>
     <section class="projectsection">

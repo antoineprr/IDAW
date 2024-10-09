@@ -25,4 +25,5 @@ function renderMenuToHTML($currentPageId, $currentLang) {
     echo '</ul>';
     echo '</nav>';
 }
+
 ?>
