@@ -1,6 +1,9 @@
 <header>
     <div class="name">
         <h1>Antoine Poirier</h1>
+        <?php
+            renderPageToLang($currentPageId);
+        ?> 
     </div>
     <div class="pfpcontainer">
         <figure id="pfp">
@@ -9,3 +12,9 @@
     </div>
     <div class="spacer"></div>  
 </header> 
+
+<?php
+    function renderPageToLang($currentPageId) {
+        echo '<a href="index.php?page='.$currentPageId.'&lang=en">English</a>';
+    }
+?> 
