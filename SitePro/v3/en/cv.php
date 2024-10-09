@@ -42,7 +42,7 @@
         <ul>
             <li>Java, JavaScript, ExtJS, Python, C, Pharo, SQL, PostgreSQL, HTML, CSS, PHP</li>
             <li>Github</li>
-            <li>Suite Office</li>
+            <li>Office suite</li>
         </ul>
     </section>
     <section class="langue">
