@@ -29,6 +29,6 @@
         echo $errorText;
     } else {
         echo "<h1>Bienvenu ".$login."</h1>";
-        echo "<a href=deconnected.php>Deconnexion</a>";
+        echo "<a href=disconnected.php>Deconnexion</a>";
     }
 ?>
