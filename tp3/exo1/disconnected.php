@@ -1,13 +1,10 @@
 <?php 
+    if(!isset($_POST['login']) && !isset($_POST['password'])) {
+        header("Location: login.php");
+    }
+
     session_start();
-    if(session_status()==2){
-        session_unset();
-        session_destroy();
-        echo "Déconnexion réussie.";
-    }
-    else {
-        echo "Pas de session active";
-    }
-    echo "<br>"; 
-    echo "<a href=login.php>Page de connexion</a>";   
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
 ?>

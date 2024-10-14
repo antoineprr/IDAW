@@ -19,7 +19,6 @@
             session_start();
             $login = $tryLogin;
             $_SESSION['login']=$login;
-            echo $_SESSION['login'];
         } else
             $errorText = "Erreur de login/password";
     } else

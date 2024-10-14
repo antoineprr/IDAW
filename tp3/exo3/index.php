@@ -1,7 +1,7 @@
 <?php
     if (isset($_POST['css'])) {
-        setcookie("style", $_POST['css'], time() + 3600);
         $styleValue = $_POST['css']; 
+        setcookie("style", $styleValue, time() + 3600);
     } else {
         if (isset($_COOKIE['style'])) {
             $styleValue = $_COOKIE['style']; 
