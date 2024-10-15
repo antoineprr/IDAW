@@ -16,7 +16,6 @@ try{
 
     $pdo->query($sql);
 
-
     echo "Base de données initialisée.";
 }
 catch(Exception $e){
