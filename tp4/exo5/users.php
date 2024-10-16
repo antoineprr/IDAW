@@ -12,6 +12,10 @@
         $sql = "SELECT * FROM USERS WHERE login='".$login."'";
         $exe = $db->query($sql);
         $res = $exe->fetchAll(PDO::FETCH_OBJ);
+        if(!$res){
+            http_response_code(404);
+            exit(json_encode(['status'=>'error', 'message'=>'user not found']));
+        }
         return $res;
     }
 
@@ -23,7 +27,7 @@
         $result = $requestSelect->fetch(PDO::FETCH_ASSOC);
         if($result){
             http_response_code(409);
-            exit();
+            exit(json_encode(['status'=>'error', 'message'=>'user already exists']));
         }
 
         $sql = "INSERT INTO users (id, login, email) VALUES (NULL, :login, :email)";
@@ -41,7 +45,7 @@
         $result = $requestSelect->fetch(PDO::FETCH_ASSOC);
         if(!$result){
             http_response_code(404);
-            exit();
+            exit(json_encode(['status'=>'error', 'message'=>'user not found']));
         }
 
         $sqlSelect = "SELECT email FROM users WHERE login = :old_login;";
@@ -83,7 +87,7 @@
         $result = $requestSelect->fetch(PDO::FETCH_ASSOC);
         if(!$result){
             http_response_code(404);
-            exit();
+            exit(json_encode(['status'=>'error', 'message'=>'user not found']));
         }
 
         $sqlDelete = "DELETE FROM users WHERE  users.login = :login";
@@ -104,9 +108,17 @@
 
     switch($_SERVER["REQUEST_METHOD"]) {
         case 'GET':
-            $result = get_users($pdo);
+            $input = json_decode(file_get_contents('php://input'), true);
+            if(!isset($input['login'])){
+                $result = get_users($pdo);
+                setHeaders();
+                exit(json_encode($result));
+            }
+            $result = get_user($pdo, $input['login']);
             setHeaders();
+            http_response_code(200);
             exit(json_encode($result));
+
         case 'POST':
             $input = json_decode(file_get_contents('php://input'), true);
             if(isset($input['login']) && isset($input['email'])){
@@ -117,8 +129,9 @@
             }
             else{
                 http_response_code(404);
-                exit();
+                exit(json_encode(['status'=>'error', 'message'=>'invalid input']));
             }
+
         case 'PUT' :
             $input = json_decode(file_get_contents('php://input'), true);
             if(isset($input['old_login']) && (isset($input['new_login'])||isset($input['new_email']))){
@@ -131,18 +144,22 @@
             }
             else{
                 http_response_code(204);
-                exit();
+                exit(json_encode(['status'=>'error', 'message'=>'invalid input']));
             }
+
         case 'DELETE' :
             $input = json_decode(file_get_contents('php://input'), true);
             if(isset($input['login'])){
                 delete_user($pdo, $input['login']);
                 setHeaders();
                 http_response_code(200);
-                exit();
+                exit(json_encode(['status'=>'ok', 'message'=>'successful operation']));
             }
             else{
                 http_response_code(204);
-                exit();
+                exit(json_encode(['status'=>'error', 'message'=>'invalid input']));
             }
     }
+    http_response_code(404);
+    exit(json_encode(['status'=>'error', 'message'=>'method not found']));
+    
