@@ -169,20 +169,20 @@ Les codes d'état HTTP renvoyés par l'API incluent :
 
 ### Exemple d'une requête GET pour récupérer un utilisateur :
 ```bash
-curl -X GET -d '{"login": "user1"}' http://localhost/api.php
+curl -X GET -d '{"login": "user1"}' http://localhost/IDAW/tp4/exo5/users.php
 ```
 
 ### Exemple d'une requête POST pour ajouter un utilisateur :
 ```bash
-curl -X POST -d '{"login": "user3", "email": "user3@example.com"}' http://localhost/api.php
+curl -X POST -d '{"login": "user3", "email": "user3@example.com"}' http://localhost/IDAW/tp4/exo5/users.php
 ```
 
 ### Exemple d'une requête PUT pour modifier un utilisateur :
 ```bash
-curl -X PUT -d '{"old_login": "user1", "new_login": "user1_new", "new_email": "newemail@example.com"}' http://localhost/api.php
+curl -X PUT -d '{"old_login": "user1", "new_login": "user1_new", "new_email": "newemail@example.com"}' http://localhost/IDAW/tp4/exo5/users.php
 ```
 
 ### Exemple d'une requête DELETE pour supprimer un utilisateur :
 ```bash
-curl -X DELETE -d '{"login": "user1"}' http://localhost/api.php
+curl -X DELETE -d '{"login": "user1"}' http://localhost/IDAW/tp4/exo5/users.php
 ```
