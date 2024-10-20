@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="style" charset="utf-8" />
+    <title>tabletest</title>
+    <style>
+    body{ margin-top: 5em; }
+    .table {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    </style>
+</head>
+<body>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom*</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Date de naissance</th>
+            <th scope="col">Aime le cours Web</th>
+            <th scope="col">Remarques</th>
+            <th scope="col" id="edit_col">CRUD</th>
+            <th scope="col" id="delete_col"></th>
+        </tr>
+    </thead>
+<tbody id="studentsTableBody">
+
+</tbody>
+</table>
+
+<form id="addStudentForm" action="" onsubmit="onFormSubmit();">
+    <div class="form-group row">
+        <label for="inputNom" class="col-sm-2 col-form-label">Nom*</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputNom" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputNom" class="col-sm-2 col-form-label">Prénom</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputPrenom" >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputDate" class="col-sm-2 col-form-label">
+            Date de naissance
+            <input type="date" class="form-control" id="inputDate" >
+        </label>
+    </div>
+    <div class="form-group row">
+        <label for="inputAime" class="col-sm-2 col-form-label">
+            Adore le cours
+            <input type="checkbox" class="form-control" id="inputAime" >
+        </label>
+    </div>
+    <div class="form-group row">
+        <label for="inputRemarques" class="col-sm-2 col-form-label">
+            Remarques
+            <input type="text" class="form-control" id="inputRemarques">
+        </label>
+    </div>
+
+    <div class="form-group row">
+        <span class="col-sm-2"></span>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary form-control"><b>Submit</b></button>
+        </div>
+    </div>
+</form>
+<script>
+    function onFormSubmit() {
+        // prevent the form to be sent to the server
+        event.preventDefault();
+        let nom = $("#inputNom").val();
+        let prenom = $("#inputPrenom").val();
+        let rawDate = $("#inputDate").val();
+        let date;
+        if (rawDate=="")
+            date = "";
+        else
+            date = convertDate(rawDate);
+        let aime = document.getElementById("inputAime").checked ? 'Oui' : 'Non';
+        let remarques = $("#inputRemarques").val();
+        let form = document.getElementById('addStudentForm');
+        form.reset();
+        $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${date}</td><td>${aime}</td><td>${remarques}</td><td><a href="#" onclick="editRow(this)">Edit</a></td><td><a href="#" onclick="deleteRow(this)">Delete</a></td></tr>`);
+    }
+
+    function convertDate(rawDate){
+        let fullDate = new Date(rawDate);
+        let jour = ("0" + fullDate.getDate()).slice(-2);
+        let mois = ("0" + (fullDate.getMonth() + 1)).slice(-2);
+        let annee = fullDate.getFullYear();
+
+        return `${jour}/${mois}/${annee}`;
+    }
+
+    function editRow(link) {
+        let row = link.parentNode.parentNode;
+        
+        let nom = row.cells[0].innerText;
+        let prenom = row.cells[1].innerText;
+        let date = row.cells[2].innerText;
+        let aime = row.cells[3].innerText === 'Oui';
+        let remarques = row.cells[4].innerText;
+
+        row.cells[0].innerHTML = `<input type="text" value="${nom}">`;
+        row.cells[1].innerHTML = `<input type="text" value="${prenom}">`;
+        row.cells[2].innerHTML = `<input type="date" value="${convertDateForEdit(date)}">`;
+        row.cells[3].innerHTML = `<input type="checkbox" ${aime ? 'checked' : ''}>`;
+        row.cells[4].innerHTML = `<input type="text" value="${remarques}">`;
+
+        link.innerHTML = "Save";
+        link.setAttribute("onclick", "saveRow(this)");
+    }
+
+    function saveRow(link) {
+        let row = link.parentNode.parentNode;
+
+        let nom = row.cells[0].querySelector('input').value;
+        if(nom == ""){
+            row.cells[0].innerHTML= `<input type="text" value="${nom}"> <span style="color: red;">Champ obligatoire<span>`;
+            return;
+        }
+        let prenom = row.cells[1].querySelector('input').value;
+        let date = row.cells[2].querySelector('input').value;
+        let aime = row.cells[3].querySelector('input').checked ? 'Oui' : 'Non';
+        let remarques = row.cells[4].querySelector('input').value;
+
+        row.cells[0].innerText = nom;
+        row.cells[1].innerText = prenom;
+        row.cells[2].innerText = convertDate(date);
+        row.cells[3].innerText = aime;
+        row.cells[4].innerText = remarques;
+
+        link.innerHTML = "Edit";
+        link.setAttribute("onclick", "editRow(this)");
+    }
+
+    function convertDateForEdit(dateString) {
+        if (dateString === "") return "";
+        let parts = dateString.split("/");
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+
+    function deleteRow(link) {
+        let row = link.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+</script>
+</body>

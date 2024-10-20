@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `login` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `email` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
+  UNIQUE KEY `login` (`login`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

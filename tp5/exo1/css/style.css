@@ -1,0 +1,62 @@
+.table {
+    width: 95%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.table th {
+    background-color: #e9e9e9;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #dddddd;
+}
+
+.table td {
+    padding: 10px;
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table td:last-child {
+    text-align: center;
+}
+
+#edit_col {
+    border-right: none;
+    width: 50px;
+}
+
+#delete_col {
+    border-left: none;
+    width: 50px;
+}
+
+.form-group{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.col-sm-3 .form-control {
+    width: 95%;
+    height: 30px;
+}
+
+#inputRemarques {
+    height: 30px;
+    width: 40%;
+}
+
+.form-group .btn {
+    width: 200px; 
+    height: 40px; 
+    float: right; 
+    border: none;
+    background-color: lightgray;
+    border-radius: 3px;
+}
