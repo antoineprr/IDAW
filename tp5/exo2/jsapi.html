@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="style" charset="utf-8" />
+    <title>tabletest</title>
+    <style>
+    body{ margin-top: 5em; }
+    .table {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    </style>
+</head>
+<body>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Login*</th>
+            <th scope="col">Email</th>
+            <th scope="col">CRUD</th>
+        </tr>
+    </thead>
+<tbody id="studentsTableBody">
+</tbody>
+</table>
+
+<form id="addStudentForm" action="" onsubmit="onFormSubmit();">
+    <div class="form-group row">
+        <label for="inputNom" class="col-sm-2 col-form-label">Login*</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputLogin" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputNom" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputEmail" >
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-2"></span>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary form-control"><b>Submit</b></button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            type: "GET", 
+            url: "http://localhost/IDAW/tp4/exo5/users.php",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                res.forEach(function (r){
+                    var ligne = $("<tr></tr>");
+                    ligne.append($("<td>" + r.login + "</td>"));
+                    ligne.append($("<td>" + r.email + "</td>"));
+                    ligne.append($("<td>" + '<a href="#" onclick="editRow(this)">Edit</a>&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="deleteRow(this)">Delete</a>' + "</td>"));
+                    $("tbody").append(ligne);
+                })
+            }
+        });
+    })
+
+    function onFormSubmit() {
+        // prevent the form to be sent to the server
+        event.preventDefault();
+        let login_form = $("#inputLogin").val();
+        let email_form = $("#inputEmail").val();
+        let form = document.getElementById('addStudentForm');
+        form.reset();
+        $.ajax({
+            type: "POST", 
+            dataType: 'json',
+            url: "http://localhost/IDAW/tp4/exo5/users.php",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "login": login_form,
+                "email": email_form
+            }),
+            success: function (msg) {
+                appendNewLine(login_form, email_form);
+            }
+        });
+    }
+
+    function appendNewLine(login, email){
+        var ligne = $("<tr></tr>");
+        ligne.append($("<td>" + login + "</td>"));
+        ligne.append($("<td>" + email + "</td>"));
+        ligne.append($("<td>" + '<a href="#" onclick="editRow(this)">Edit</a>&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="deleteRow(this)">Delete</a>' + "</td>"));
+        $("tbody").append(ligne);
+    }
+
+    function editRow(link) {
+        let row = link.parentNode.parentNode;
+        
+        let login = row.cells[0].innerText;
+        let email = row.cells[1].innerText;
+
+        row.cells[0].innerHTML = '<input type="text" value="' + login + '">';
+        row.cells[1].innerHTML = '<input type="text" value="' + email + '">';
+        link.innerHTML = "Save";
+        link.setAttribute("onclick", 'saveRow(this, "'+login+'", "'+email+'")');
+    }
+
+    function saveRow(link, old_login, old_email) {
+        let row = link.parentNode.parentNode;
+
+        let login = row.cells[0].querySelector('input').value;
+        if(login == ""){
+            row.cells[0].innerHTML= '<input type="text" value="'+login+'"> <span style="color: red;">Champ obligatoire<span>';
+            return;
+        }
+        let email = row.cells[1].querySelector('input').value;
+        $.ajax({
+            type: "PUT", 
+            dataType: 'json',
+            url: "http://localhost/IDAW/tp4/exo5/users.php",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "old_login": old_login,
+                "new_login": login,
+                "new_email": email
+            }),
+            success: function (msg) {
+                email = email=="" ? old_email : email;
+                row.cells[0].innerText = login;
+                row.cells[1].innerText = email;
+                link.innerHTML = "Edit";
+                link.setAttribute("onclick", "editRow(this)");
+            }
+        });
+    }
+
+    function deleteRow(link) {
+        let row = link.parentNode.parentNode;
+        let login = row.cells[0].innerText;
+        $.ajax({
+            type: "DELETE", 
+            dataType: 'json',
+            url: "http://localhost/IDAW/tp4/exo5/users.php",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "login": login,
+            }),
+            success: function (msg) {
+                row.parentNode.removeChild(row);
+            }
+        });
+    }
+</script>
+</body>

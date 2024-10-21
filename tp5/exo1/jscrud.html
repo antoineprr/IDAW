@@ -23,8 +23,7 @@
             <th scope="col">Date de naissance</th>
             <th scope="col">Aime le cours Web</th>
             <th scope="col">Remarques</th>
-            <th scope="col" id="edit_col">CRUD</th>
-            <th scope="col" id="delete_col"></th>
+            <th scope="col">CRUD</th>
         </tr>
     </thead>
 <tbody id="studentsTableBody">
@@ -87,7 +86,7 @@
         let remarques = $("#inputRemarques").val();
         let form = document.getElementById('addStudentForm');
         form.reset();
-        $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${date}</td><td>${aime}</td><td>${remarques}</td><td><a href="#" onclick="editRow(this)">Edit</a></td><td><a href="#" onclick="deleteRow(this)">Delete</a></td></tr>`);
+        $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${date}</td><td>${aime}</td><td>${remarques}</td><td><a href="#" onclick="editRow(this)">Edit</a>&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="deleteRow(this)">Delete</a></td></tr>`);
     }
 
     function convertDate(rawDate){
